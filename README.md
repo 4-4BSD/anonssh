@@ -9,7 +9,8 @@ what's needed to run your program behind sshd, and handles the SSH
 configuration so the user's session is forced directly into your app via
 `ForceCommand`. No shell access, no escape, minimal attack surface.
 
-## What can you build with it?
+
+### What can you build with it?
 
 Anything that fits in a terminal and benefits from being public:
 
@@ -23,7 +24,7 @@ Anything that fits in a terminal and benefits from being public:
 
 No signup. No account. Just SSH.
 
-## How it works
+### How it works
 
 Anon compiles into two static binaries via mruby (about 3MB each, zero
 runtime dependencies):
@@ -37,14 +38,14 @@ runtime dependencies):
 The jail contains `/bin/sh` but virtually no programs — just sshd and
 your program. Probably around 1% of what a normal FreeBSD install ships.
 
-## Network
+### Network
 
 For simplicity, the jail shares the host network and inherits its IPv4
 address. The jail's sshd binds to port 22 for standard SSH access. The
 host should run its own sshd on a different port (like 2222) so it
 doesn't conflict.
 
-## Quick start
+### Install
 
 ```sh
 git clone https://git.home.network/0x1eef/anon.git
@@ -55,14 +56,14 @@ make
 
 Then point sshd at the jail, and `ssh appuser@host` lands in your app.
 
-## Configuration
+### Configuration
 
 Config files live in `share/anon/etc/` and use `.tt` templates for
 values like the username and binary path. They're copied into the jail
 as-is after template substitution. Modify `rc.conf` or add your own
 files there before building.
 
-## What does the name mean?
+### Anon
 
 The name is inspired by the OpenBSD project, and it stands for
 "anonymous". The OpenBSD project provides the general public with
