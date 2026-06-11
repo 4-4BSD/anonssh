@@ -25,19 +25,23 @@ No signup. No account. Just SSH.
 
 ## How it works
 
-Anon compiles into three static binaries via mruby (about 3MB each, zero
-runtime dependencies):
+#### bin/anon
 
-- **`anon`** — a dispatch command.
-- **`bootstrap`** — creates the jail directory tree, resolves shared
-  libraries for the target binary and sshd and copies them in, generates
-  config files from templates, creates the user account, and generates
-  SSH host keys.
-- **`serve`** — mounts devfs, attaches to an existing jail, starts sshd
-  inside it, and manages the lifecycle.
+The anon executable acts as dispatch for subcommands like `bootstrap`
+and `serve` subcommands.
 
-The jail contains `/bin/sh` but virtually no programs — just sshd and
-your program. Probably around 1% of what a normal FreeBSD install ships.
+#### libexec/anon/bootstrap
+
+`anon bootstrap` creates the jail directory tree, resolves shared libraries
+for the target binary and sshd, generates config files from templates,
+creates users account, and generates SSH host keys.
+
+#### libexec/anon/serve
+
+`anon serve` mounts devfs, boots a new jail, attaches the current
+process to the jail, and starts sshd. The jail contains `/bin/sh`
+but virtually no programs — just sshd and your program. Probably
+around 1% of what a normal FreeBSD install is included.
 
 ## Network
 
