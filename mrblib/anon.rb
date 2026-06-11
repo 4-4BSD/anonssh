@@ -33,6 +33,16 @@ module Anon
   end
 
   ##
+  # @return [Array<String>]
+  def self.bootfiles
+    [
+      File.join("/etc/rc"),
+      File.join("/etc/rc.subr"),
+      File.join("/etc/rc.d/sshd")
+    ]
+  end
+
+  ##
   # @param [Array<String>] argv
   # @return [Array<String, String>]
   def self.parse(command, argv)
