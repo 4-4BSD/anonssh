@@ -4,7 +4,7 @@
 
 anon gives you a single `ssh` command that drops users straight into a
 terminal application — no signup, no account required, publicly
-accessible via SSH.
+accessible to the world via passwordless SSH.
 
 It builds a locked-down FreeBSD jail from source, populates it with only
 what's needed to run your program behind sshd, and handles the SSH
