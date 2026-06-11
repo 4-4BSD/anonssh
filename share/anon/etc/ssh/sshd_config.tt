@@ -3,8 +3,10 @@ AllowUsers %%USER%%
 
 PermitRootLogin no
 PubkeyAuthentication no
-PasswordAuthentication no
+PasswordAuthentication yes
 ChallengeResponseAuthentication no
+KbdInteractiveAuthentication no
+PermitEmptyPasswords yes
 DisableForwarding yes
 X11Forwarding no
 AllowTcpForwarding no
@@ -16,5 +18,3 @@ UsePAM no
 Match User %%USER%%
     ForceCommand %%BINARY%%
     PermitTTY yes
-    PermitEmptyPasswords yes
-    PasswordAuthentication yes
