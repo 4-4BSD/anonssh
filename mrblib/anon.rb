@@ -28,7 +28,8 @@ module Anon
   def self.etc
     [
       File.join(share, "etc", "group"),
-      File.join(share, "etc", "ssh", "sshd_config")
+      File.join(share, "etc", "ssh", "sshd_config"),
+      File.join(share, "etc", "rc.conf")
     ]
   end
 
