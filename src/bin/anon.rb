@@ -1,7 +1,8 @@
 def main(argv)
-  case argv.shift
-  when "bootstrap"
-    pid = Process.spawn File.join(Anon.libexec, "bootstrap"), *argv
+  command = argv.shift
+  case command
+  when "bootstrap", "serve"
+    pid = Process.spawn File.join(Anon.libexec, command), *argv
     Process.waitpid2(pid)
   else Anon.usage!
   end

@@ -10,6 +10,7 @@ module Anon
 
         commands:
           bootstrap  bootstrap a new jail
+          serve      serve a program in a jail
       USAGE
     end
 

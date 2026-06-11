@@ -6,10 +6,11 @@ module Anon
   # @return [Array<String>]
   def self.tree
     [
-      "/etc", "/etc/rc.d", "/etc/ssh", "/root", "/tmp",
+      "/etc", "/etc/ssh", "/root", "/tmp",
       "/lib", "/libexec", "/sbin", "/bin", "/dev", "/var",
       "/usr", "/usr/share", "/usr/libexec", "/usr/lib",
-      "/usr/include", "/usr/bin", "/usr/sbin"
+      "/usr/include", "/usr/bin", "/usr/sbin", "/usr/local",
+      "/usr/local/lib", "/var/run", "/var/empty"
     ]
   end
 
@@ -28,24 +29,17 @@ module Anon
   def self.etc
     [
       File.join(share, "etc", "group"),
-      File.join(share, "etc", "ssh", "sshd_config"),
-      File.join(share, "etc", "rc.conf")
+      File.join(share, "etc", "ssh", "sshd_config")
     ]
-  end
-
-  ##
-  # @return [Array<String>]
-  def self.bootfiles
-    ["/etc/rc", "/etc/rc.subr", "/etc/rc.d/sshd"]
   end
 
   ##
   # @param [Array<String>] argv
   # @return [Array<String, String>]
   def self.parse(command, argv)
-    while option = argv.shift
-      case command
-      when :bootstrap
+    case command
+    when :bootstrap
+      while option = argv.shift
         case option
         when "-p" then path = argv.shift
         when "-b" then binary = argv.shift
@@ -53,8 +47,17 @@ module Anon
         else error!("unknown option: #{option}")
         end
       end
+      [path, binary, user || "anon"]
+    when :serve
+      while option = argv.shift
+        case option
+        when "-n" then name = argv.shift
+        when "-p" then path = argv.shift
+        else error!("unknown option: #{option}")
+        end
+      end
+      [name, path]
     end
-    [path, binary, user || "anon"]
   end
 
   ##
@@ -62,6 +65,8 @@ module Anon
   def self.libexec
     rel = File.join File.dirname($0), "..", "libexec", "anon"
     File.realpath(rel)
+  rescue Errno::ENOENT
+    File.join(ENV["PREFIX"] || "/usr/local", "libexec", "anon")
   end
 
   ##
@@ -69,5 +74,7 @@ module Anon
   def self.share
     rel = File.join File.dirname(__FILE__), "..", "share", "anon"
     File.realpath(rel)
+  rescue Errno::ENOENT
+    File.join(ENV["PREFIX"] || "/usr/local", "share", "anon")
   end
 end

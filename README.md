@@ -64,7 +64,7 @@ files there before building.
 
 ## Future
 
-`anon run` will spawn a jail directly — creating it, starting sshd
+`anon serve` will spawn a jail directly — creating it, starting sshd
 inside, and managing the lifecycle in one command.
 
 ## License

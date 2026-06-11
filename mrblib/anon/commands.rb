@@ -24,6 +24,62 @@ module Anon
     ##
     # @param [String] path
     # @return [Command]
+    def ldconfig(path)
+      Command
+        .new("ldconfig")
+        .argv("-f", File.join(path, "var", "run", "ld-elf.so.hints"))
+        .argv("/lib")
+        .argv("/usr/lib")
+        .argv("/usr/local/lib")
+    end
+
+    ##
+    # @param [String] path
+    # @return [Command]
+    def ssh_keygen(path)
+      Command
+        .new("ssh-keygen")
+        .argv("-A")
+        .argv("-f", path)
+    end
+
+    ##
+    # @param [String] path
+    # @return [Command]
+    def mount_devfs(path)
+      Command
+        .new("mount")
+        .argv("-t", "devfs")
+        .argv("devfs")
+        .argv(File.join(path, "dev"))
+    end
+
+    ##
+    # @param [String] path
+    # @param [String] set
+    # @return [Command]
+    def devfs_ruleset(path, set = "4")
+      Command
+        .new("devfs")
+        .argv("-m", File.join(path, "dev"))
+        .argv("ruleset")
+        .argv(set)
+    end
+
+    ##
+    # @param [String] path
+    # @return [Command]
+    def devfs_applyset(path)
+      Command
+        .new("devfs")
+        .argv("-m", File.join(path, "dev"))
+        .argv("rule")
+        .argv("applyset")
+    end
+
+    ##
+    # @param [String] path
+    # @return [Command]
     def mkdir_p(path)
       Command
         .new("mkdir")
