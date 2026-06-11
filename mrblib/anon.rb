@@ -6,7 +6,7 @@ module Anon
   # @return [Array<String>]
   def self.tree
     [
-      "/etc", "/etc/ssh", "/root", "/tmp",
+      "/etc", "/etc/ssh", "/etc/ssl", "/root", "/tmp",
       "/lib", "/libexec", "/sbin", "/bin", "/dev", "/var",
       "/usr", "/usr/share", "/usr/libexec", "/usr/lib",
       "/usr/include", "/usr/bin", "/usr/sbin", "/usr/local",
@@ -28,6 +28,9 @@ module Anon
   # @return [Array<String>]
   def self.etc
     [
+      File.join("/etc", "ssl", "certs"),
+      File.join("/etc", "ssl", "cert.pem"),
+      File.join("/etc", "resolv.conf"),
       File.join(share, "etc", "group"),
       File.join(share, "etc", "ssh", "sshd_config")
     ]

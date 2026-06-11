@@ -5,8 +5,11 @@ module Anon
     # @param [String] dest
     # @return [Command]
     def cp(src, dest)
+      argv = File.directory?(src) ? ["-R"] : []
+      src = src[0..-2] if src.end_with?("/")
       Command
         .new("cp")
+        .argv(*argv)
         .argv(src, dest)
     end
 
