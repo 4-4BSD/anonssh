@@ -1,4 +1,4 @@
-module Anon
+module AnonSSH
   module IO
     ##
     # @return [String]
@@ -6,7 +6,7 @@ module Anon
     def usage!
       error! <<~USAGE
         usage:
-          anon <command> [options]
+          anonssh <command> [options]
 
         commands:
           bootstrap  bootstrap a new jail
@@ -27,7 +27,7 @@ module Anon
     # @param [IO] io
     # @return [void]
     def say(message, io = $stdout)
-      io.puts "anon: #{message}"
+      io.puts "anonssh: #{message}"
     end
   end
 end

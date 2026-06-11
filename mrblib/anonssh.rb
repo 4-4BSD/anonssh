@@ -1,6 +1,6 @@
-module Anon
-  extend Anon::IO
-  extend Anon::Commands
+module AnonSSH
+  extend AnonSSH::IO
+  extend AnonSSH::Commands
 
   ##
   # @return [Array<String>]
@@ -18,9 +18,9 @@ module Anon
   # @return [Array<String>]
   def self.templates
     [
-      File.join(Anon.share, "etc", "group.tt"),
-      File.join(Anon.share, "etc", "master.passwd.tt"),
-      File.join(Anon.share, "etc", "ssh", "sshd_config.tt")
+      File.join(AnonSSH.share, "etc", "group.tt"),
+      File.join(AnonSSH.share, "etc", "master.passwd.tt"),
+      File.join(AnonSSH.share, "etc", "ssh", "sshd_config.tt")
     ]
   end
 
@@ -50,7 +50,7 @@ module Anon
         else error!("unknown option: #{option}")
         end
       end
-      [path, binary, user || "anon"]
+      [path, binary, user || "anonssh"]
     when :serve
       while option = argv.shift
         case option
@@ -66,18 +66,18 @@ module Anon
   ##
   # @return [String]
   def self.libexec
-    rel = File.join File.dirname($0), "..", "libexec", "anon"
+    rel = File.join File.dirname($0), "..", "libexec", "anonssh"
     File.realpath(rel)
   rescue Errno::ENOENT
-    File.join(ENV["PREFIX"] || "/usr/local", "libexec", "anon")
+    File.join(ENV["PREFIX"] || "/usr/local", "libexec", "anonssh")
   end
 
   ##
   # @return [String]
   def self.share
-    rel = File.join File.dirname(__FILE__), "..", "share", "anon"
+    rel = File.join File.dirname(__FILE__), "..", "share", "anonssh"
     File.realpath(rel)
   rescue Errno::ENOENT
-    File.join(ENV["PREFIX"] || "/usr/local", "share", "anon")
+    File.join(ENV["PREFIX"] || "/usr/local", "share", "anonssh")
   end
 end

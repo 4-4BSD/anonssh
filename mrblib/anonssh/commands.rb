@@ -1,4 +1,4 @@
-module Anon
+module AnonSSH
   module Commands
     ##
     # @param [String] src

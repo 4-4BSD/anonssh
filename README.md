@@ -1,8 +1,8 @@
 <p align="center">
-  <img width=150 height=150 src="anon.png">
+  <img width=150 height=150 src="anonssh.png">
 </p>
 
-anon gives you a single `ssh` command that drops users straight into a
+anonssh gives you a single `ssh` command that drops users straight into a
 terminal application — no signup, no account required, publicly
 accessible to the world via passwordless SSH.
 
@@ -27,7 +27,7 @@ No signup. No account. Just SSH.
 
 #### Bootstrap
 
-> anon bootstrap [OPTIONS]
+> anonssh bootstrap [OPTIONS]
 
 Bootstraps a new jail.
 
@@ -41,7 +41,7 @@ Options:
 
 #### Serve
 
-> anon serve [OPTIONS]
+> anonssh serve [OPTIONS]
 
 Serves a new jail running sshd.
 

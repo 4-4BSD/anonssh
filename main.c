@@ -8,7 +8,7 @@
 #include <mruby/variable.h>
 
 #ifndef APP_IREP
-#define APP_IREP anon_main
+#define APP_IREP anonssh_main
 #endif
 
 extern const uint8_t APP_IREP[];

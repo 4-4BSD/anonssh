@@ -4,7 +4,7 @@ mruby:
   release_no: 40000
   git_commit: 8aa73df75c59f8211a43d7de714a43dfa270d690
 builds:
-  anon:
+  anonssh:
     https://github.com/0x1eef/mruby-command.git:
       url: https://github.com/0x1eef/mruby-command.git
       branch: v0.2.0

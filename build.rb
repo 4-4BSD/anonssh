@@ -1,4 +1,4 @@
-MRuby::Build.new("anon") do |conf|
+MRuby::Build.new("anonssh") do |conf|
   profile = ENV["BUILD"] || "base-dynamic"
   raise ArgumentError, "unknown BUILD=#{profile.inspect}" unless profile == "base-dynamic"
 
