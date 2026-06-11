@@ -27,6 +27,8 @@ No signup. No account. Just SSH.
 
 #### Bootstrap
 
+> anon bootstrap [OPTIONS]
+
 Bootstraps a new jail.
 
 Options:
@@ -38,6 +40,8 @@ Options:
 | `-u USER` | The username that logs into ssh |
 
 #### Serve
+
+> anon serve [OPTIONS]
 
 Serves a new jail running sshd.
 
