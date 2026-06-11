@@ -53,6 +53,7 @@ def main(argv)
     Anon.error!(command.stderr)
   end
 
+  Anon.say "discover shared libs"
   binaries.each do |file|
     command = Command.new("ldd", file)
     if command.success?
@@ -63,7 +64,7 @@ def main(argv)
         shlibs << match if match
       end
     else
-      raise "ldd: #{command.stderr}"
+      Anon.error!(command.stderr)
     end
   end
 
