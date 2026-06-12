@@ -53,6 +53,13 @@ def main(argv)
 
   [*copies, *AnonSSH.etc].each do |src|
     src, dest = src, File.join(path, File.dirname(src).sub(AnonSSH.share, ''))
+    if not File.exist? dest
+      AnonSSH.say "mkdir #{dest}"
+      command = AnonSSH.mkdir_p(dest)
+      if command.failure?
+        AnonSSH.error!(command.stderr)
+      end
+    end
     command = AnonSSH.cp(src, dest)
     AnonSSH.say "cp #{src} #{dest}"
     if command.failure?
