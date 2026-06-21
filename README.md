@@ -2,66 +2,69 @@
   <img width=400 height=200 src="4.4bsd.svg">
 </p>
 
-anonssh gives you a single `ssh` command that drops users straight into a
-terminal application — no signup, no account required, publicly
-accessible to the world via passwordless SSH.
+anonssh builds a mini jail on FreeBSD, and its forks.
 
-It builds a locked-down FreeBSD jail from source, populates it with only
-what's needed to run your program behind sshd, and handles the SSH
-configuration so the user's session is forced directly into your app via
-`ForceCommand`. No shell access, no escape, minimal attack surface.
+It can be used to launch terminal-based applications in a
+constrained environment that has nothing other than your
+application, and its runtime dependencies. The application
+can be accessed over a publically accessible sshd instance.
 
-## Scenarios
+The jail includes only the files needed to run a single program
+behind sshd. <br> The sshd instance locks the user into the given
+program via `ForceCommand`. 
 
-No signup. No account. Just SSH.
+## Quick start
 
-| What it looks like | Example |
-|---|---|
-| `ssh robert@4.4bsd.dev` | An AI that teaches you FreeBSD |
-| `ssh mud@example.com` | A multiplayer roguelike or MUD |
-| `ssh paste@example.com` | A terminal-based paste service |
-| `ssh status@example.com` | Live dashboards, weather, train times |
-| `ssh play@example.com` | Games, puzzles, interactive fiction |
+#### bootstrap
 
-## Commands
+Bootstraps a mini-jail with only what your program needs. <br>
+This command will discover shared libraries, set up device nodes,
+generate SSH host keys, and only install the dependencies your
+program needs.
 
-#### Bootstrap
-
-> anonssh bootstrap [OPTIONS]
-
-Bootstraps a new jail.
+```
+anonssh bootstrap -p /path/to/jail -b /path/to/binary
+```
 
 Options:
 
 | Option | Description |
 |---|---|
-| `-p PATH` | The jail location |
-| `-b BINARY` | The program to serve over sshd |
-| `-u USER` | The username that logs into ssh (optional) |
-| `-f FILE` | A file that contains a list of files (1 per line) that are copied into the jail |
+| `-p PATH` | Jail root directory |
+| `-b BINARY` | The program to run over SSH |
+| `-u USER` | SSH username (default: anonssh) |
+| `-f FILE` | File listing extra files to copy into the jail (one per line) |
 
-#### Serve
+#### serve
 
-> anonssh serve [OPTIONS]
+Starts the jail with sshd running. <br>
+The jail inherits the host network and binds sshd to port 22.
 
-Serves a new jail running sshd.
+```
+anonssh serve -n jailname -p /path/to/jail
+```
 
 Options:
 
 | Option | Description |
 |---|---|
-| `-n NAME` | The jail name |
-| `-p PATH` | The jail location |
+| `-n NAME` | Jail name |
+| `-p PATH` | Jail root directory |
 
+## Network
 
-## Environment
+The jail shares the host network stack (`ip4: inherit`) and its sshd
+binds to port 22. The host should run its own sshd on a different port
+(such as 2222) to avoid conflicts.
 
-#### Network
+## Build
 
-For simplicity, the jail shares the host network and inherits its IPv4
-address. The jail's sshd binds to port 22 for standard SSH access. The
-host should run its own sshd on a different port (like 2222) so it
-doesn't conflict.
+Prerequisites: an mruby checkout in a sibling `../mruby` directory.
+
+```
+make
+make install
+```
 
 ## License
 
