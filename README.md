@@ -1,5 +1,5 @@
 <p align="center">
-  <img width=150 height=150 src="4.4bsd.svg">
+  <img width=400 height=200 src="4.4bsd.svg">
 </p>
 
 anonssh gives you a single `ssh` command that drops users straight into a
